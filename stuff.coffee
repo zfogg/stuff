@@ -44,6 +44,8 @@ app.get "/", controllers.main
 
 # Data
 app.get  "/api/stuff", api.stuff
+app.get  "/api/num/integer", api.num.integer
+app.get  "/api/num/decimal", api.num.decimal
 
 # Errors
 app.get "/404", controllers.notFound

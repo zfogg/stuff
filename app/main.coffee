@@ -5,14 +5,13 @@ angular.module('stuff', [
   'ngRoute'
 
   'stuff.index'
+  'stuff.num'
 ])
 
   .config([
-    '$routeProvider'
-    '$locationProvider'
+    '$routeProvider', '$locationProvider',
     ($routeProvider, $locationProvider) ->
       $routeProvider
         .otherwise
           redirectTo: '/'
-      $locationProvider.html5Mode(true)
   ])

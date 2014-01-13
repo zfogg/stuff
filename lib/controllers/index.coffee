@@ -11,7 +11,7 @@ exports.partials = (req, res) ->
   requestedView = path.join("./", req.url.split(".")[0])
   res.render requestedView, (err, html) ->
     if err
-      console.log "Render error: #{err}"
+      console.log err
       res.redirect 404, "/404"
     else
       res.send html

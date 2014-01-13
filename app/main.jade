@@ -15,13 +15,15 @@ html(ng-app="stuff")
     <!-- endbuild -->
 
   body
-    #wrapper(ng-view)
+    header#header
+    #wrapper.container
+      #main(role="main" ng-view)
+    footer#footer
 
     #scripts
       <!-- build:js(app) plugins.js -->
       script(src="vendor/jquery/jquery.js")
       script(src="vendor/angular/angular.js")
-      //-script(src="sass-bootstrap/js/button.js")
       <!-- endbuild -->
 
       <!-- build:js(app) modules.js -->
@@ -32,6 +34,11 @@ html(ng-app="stuff")
       <!-- endbuild -->
 
       <!-- build:js({.tmp,app}) scripts.js -->
+      script(src="num/index.js")
+      script(src="num/integer.js")
+      script(src="num/decimal.js")
+
       script(src="index/index.js")
+
       script(src="main.js")
       <!-- endbuild -->
