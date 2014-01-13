@@ -1,16 +1,17 @@
-"use strict"
-
-
 path = require("path")
+
+
+exports.main = (req, res) ->
+  res.render "main"
+
+exports.notFound = (req, res) ->
+  res.render 404, "404"
+
 exports.partials = (req, res) ->
-  stripped = req.url.split(".")[0]
-  requestedView = path.join("./", stripped)
+  requestedView = path.join("./", req.url.split(".")[0])
   res.render requestedView, (err, html) ->
     if err
-      res.render "404"
+      console.log "Render error: #{err}"
+      res.redirect 404, "/404"
     else
       res.send html
-
-
-exports.index = (req, res) ->
-  res.render "index"
