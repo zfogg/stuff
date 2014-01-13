@@ -1,12 +1,8 @@
-# Generated on 2013-12-20 using generator-angular-fullstack 1.0.1
 "use strict"
 
-# # Globbing
-# for performance reasons we're only matching one level down:
-# 'test/spec/{,*/}*.js'
-# use this if you want to recursively match all subfolders:
-# 'test/spec/**/*.js'
 module.exports = (grunt) ->
+
+  bower = require './bower.json'
 
   # Load grunt tasks automatically
   require("load-grunt-tasks") grunt
@@ -19,11 +15,9 @@ module.exports = (grunt) ->
 
     # Project settings
     yeoman:
-
-      # configurable paths
-      app: require("./bower.json").appPath or "app"
+      name: bower.name or "name"
+      app: bower.appPath or "app"
       dist: "public"
-      views: "views"
 
     express:
       options:
@@ -32,17 +26,17 @@ module.exports = (grunt) ->
 
       dev:
         options:
-          script: "bitcamp.coffee"
+          script: "<%= yeoman.name %>.coffee"
           node_env: "development"
 
       prod:
         options:
-          script: "bitcamp.coffee"
+          script: "<%= yeoman.name %>.coffee"
           node_env: "production"
 
     watch:
       coffee:
-        files: ["<%= yeoman.app %>/scripts/{,*/}*.{coffee,litcoffee,coffee.md}"]
+        files: ["<%= yeoman.app %>/{,*/}*.{coffee,litcoffee,coffee.md}"]
         tasks: ["newer:coffee:dist"]
 
       compass:
@@ -60,8 +54,8 @@ module.exports = (grunt) ->
           livereload: true
       livereload_else:
         files: [
-          "<%= yeoman.app %>/<%= yeoman.views %>/{,*//*}*.{html,jade}"
-          "{.tmp,<%= yeoman.app %>}/scripts/{,*//*}*.js"
+          "<%= yeoman.app %>/{,*//*}*.{html,jade}"
+          "{.tmp,<%= yeoman.app %>}/{,*//*}*.js"
           "<%= yeoman.app %>/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}"
         ]
         options:
@@ -69,7 +63,7 @@ module.exports = (grunt) ->
 
       express:
         files: [
-          "bitcamp.coffee"
+          "<%= yeoman.name %>.coffee"
           "lib/{,*//*}*.{coffee,js,json}"
         ]
         tasks: ["express:dev"]
@@ -145,9 +139,9 @@ module.exports = (grunt) ->
       dist:
         files: [
           expand: true
-          cwd: "<%= yeoman.app %>/scripts"
+          cwd: "<%= yeoman.app %>"
           src: "{,*/}*.coffee"
-          dest: ".tmp/scripts"
+          dest: ".tmp"
           ext: ".js"
         ]
 
@@ -159,9 +153,9 @@ module.exports = (grunt) ->
         cssDir: ".tmp/styles"
         generatedImagesDir: ".tmp/images/generated"
         imagesDir: "<%= yeoman.app %>/images"
-        javascriptsDir: "<%= yeoman.app %>/scripts"
+        javascriptsDir: "<%= yeoman.app %>"
         fontsDir: "<%= yeoman.app %>/styles/fonts"
-        importPath: "<%= yeoman.app %>/bower_components"
+        importPath: "./bower_components"
         httpImagesPath: "/images"
         httpGeneratedImagesPath: "/images/generated"
         httpFontsPath: "/styles/fonts"
@@ -182,7 +176,7 @@ module.exports = (grunt) ->
       dist:
         files:
           src: [
-            "<%= yeoman.dist %>/scripts/{,*/}*.js"
+            "<%= yeoman.dist %>/{,*/}*.js"
             "<%= yeoman.dist %>/styles/{,*/}*.css"
             "<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}"
           ]
@@ -193,7 +187,7 @@ module.exports = (grunt) ->
     # additional tasks can operate on them
     useminPrepare:
       html: [
-        "<%= yeoman.app %>/<%= yeoman.views %>/**/*.jade"
+        "<%= yeoman.app %>/**/*.jade"
       ]
       options:
         dest: "<%= yeoman.dist %>"
@@ -202,8 +196,8 @@ module.exports = (grunt) ->
     # Performs rewrites based on rev and the useminPrepare configuration
     usemin:
       html: [
-        "<%= yeoman.dist %>/<%= yeoman.views %>/{,*/}*.html"
-        "<%= yeoman.dist %>/<%= yeoman.views %>/{,*/}*.jade"
+        "<%= yeoman.dist %>/{,*/}*.html"
+        "<%= yeoman.dist %>/{,*/}*.jade"
       ]
       css: ["<%= yeoman.dist %>/styles/{,*/}*.css"]
       options:
@@ -243,12 +237,11 @@ module.exports = (grunt) ->
         # removeOptionalTags: true*/
         files: [
           expand: true
-          cwd: "<%= yeoman.app %>/<%= yeoman.views %>"
+          cwd: "<%= yeoman.app %>"
           src: [
             "*.html"
-            "partials/*.html"
           ]
-          dest: "<%= yeoman.dist %>/<%= yeoman.views %>"
+          dest: "<%= yeoman.dist %>"
         ]
 
 
@@ -258,18 +251,11 @@ module.exports = (grunt) ->
       dist:
         files: [
           expand: true
-          cwd: ".tmp/concat/scripts"
+          cwd: ".tmp/concat"
           src: "*.js"
-          dest: ".tmp/concat/scripts"
+          dest: ".tmp/concat"
         ]
 
-
-    # Replace Google CDN references
-    #cdnify: {
-    #      dist: {
-    #        html: ['<%= yeoman.views %>/*.html']
-    #      }
-    #    },
 
     # Copies remaining files to places other tasks can use
     copy:
@@ -283,7 +269,6 @@ module.exports = (grunt) ->
             src: [
               "*.{ico,png,txt}"
               ".htaccess"
-              "bower_components/**/*"
               "images/*"
               "fonts/*"
               "static/*"
@@ -292,8 +277,8 @@ module.exports = (grunt) ->
           {
             expand: true
             dot: true
-            cwd: "<%= yeoman.app %>/<%= yeoman.views %>"
-            dest: "<%= yeoman.dist %>/<%= yeoman.views %>"
+            cwd: "<%= yeoman.app %>"
+            dest: "<%= yeoman.dist %>"
             src: "**/*.jade"
           }
           {

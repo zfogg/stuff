@@ -1,4 +1,3 @@
-/app/bower_components/
 /app/static/
 /app/images/
 /app/fonts/
@@ -8,5 +7,6 @@
 /.tmp/
 
 /node_modules/
+/bower_components/
 /.sass-cache/
 /sass-bootstrap

@@ -1,5 +1,5 @@
 {
-  "name": "bitcamp",
+  "name": "stuff",
   "version": "1.0.0",
   "dependencies": {
     "express": "~3.4.3",
