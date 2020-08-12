@@ -2,7 +2,7 @@
   "name": "stuff",
   "version": "1.0.0",
   "dependencies": {
-    "express": "~3.4.3",
+    "express": "~4.17.1",
     "jade": "latest",
     "mysql-promise": "~0.1.0",
     "validator": "~2.0.0",
